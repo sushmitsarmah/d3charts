@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>D3 testing</title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+		<style type="text/css">
+
+			body { 
+				font: 12px Arial;
+			}
+
+			path { 
+				stroke: #2f7ed8;
+				stroke-width: 2;
+				fill: none; 
+			}
+
+			.axis path,
+			.axis line { 
+				fill: none; 
+				stroke: grey; 
+				stroke-width: 1; 
+				shape-rendering: crispEdges; 
+			}
+
+			.area {
+				fill: #2f7ed8;
+				opacity: 0.5;
+			}
+
+			.grid .tick {
+				stroke: lightgrey;
+				opacity: 0.7;
+				}
+			.grid path {
+				stroke-width: 0;
+			}
+
+
+
+		</style>
+	</head>
+	<body>
+		<button class="update btn btn-large btn-success" type="button">Update</button>
+		<div id="graph"></div> 
+		<script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/d3.v3.min.js"></script>
+		<script type="text/javascript" src="js/d3charts.min.js"></script>
+		<script type="text/javascript">
+$(document).ready(function(){
+
+var json1 = [
+    {
+        "date": "2013-12-20",
+        "followers": 784
+    },
+    {
+        "date": "2013-12-21",
+        "followers": 793
+    },
+    {
+        "date": "2013-12-22",
+        "followers": 6934
+    },
+    {
+        "date": "2013-12-23",
+        "followers": 2645
+    },
+    {
+        "date": "2013-12-24",
+        "followers": 8341
+    },
+    {
+        "date": "2013-12-25",
+        "followers": 7874
+    },
+    {
+        "date": "2013-12-26",
+        "followers": 104
+    },
+    {
+        "date": "2013-12-27",
+        "followers": 2812
+    },
+    {
+        "date": "2013-12-28",
+        "followers": 2835
+    },
+    {
+        "date": "2013-12-29",
+        "followers": 8868
+    },
+    {
+        "date": "2013-12-30",
+        "followers": 2122
+    },
+    {
+        "date": "2013-12-31",
+        "followers": 6052
+    },
+    {
+        "date": "2014-01-01",
+        "followers": 5299
+    },
+    {
+        "date": "2014-01-02",
+        "followers": 4270
+    },
+    {
+        "date": "2014-01-03",
+        "followers": 9058
+    },
+    {
+        "date": "2014-01-04",
+        "followers": 5864
+    },
+    {
+        "date": "2014-01-05",
+        "followers": 9587
+    },
+    {
+        "date": "2014-01-06",
+        "followers": 9325
+    },
+    {
+        "date": "2014-01-07",
+        "followers": 6647
+    },
+    {
+        "date": "2014-01-08",
+        "followers": 1446
+    },
+    {
+        "date": "2014-01-09",
+        "followers": 4226
+    },
+    {
+        "date": "2014-01-10",
+        "followers": 5026
+    },
+    {
+        "date": "2014-01-11",
+        "followers": 3706
+    },
+    {
+        "date": "2014-01-12",
+        "followers": 6227
+    },
+    {
+        "date": "2014-01-13",
+        "followers": 9792
+    },
+    {
+        "date": "2014-01-14",
+        "followers": 4624
+    },
+    {
+        "date": "2014-01-15",
+        "followers": 7555
+    },
+    {
+        "date": "2014-01-16",
+        "followers": 6745
+    },
+    {
+        "date": "2014-01-17",
+        "followers": 7458
+    },
+    {
+        "date": "2014-01-18",
+        "followers": 4801
+    },
+    {
+        "date": "2014-01-19",
+        "followers": 1338
+    },
+    {
+        "date": "2014-01-20",
+        "followers": 8243
+    },
+    {
+        "date": "2014-01-21",
+        "followers": 5595
+    },
+    {
+        "date": "2014-01-22",
+        "followers": 8272
+    },
+    {
+        "date": "2014-01-23",
+        "followers": 887
+    },
+    {
+        "date": "2014-01-24",
+        "followers": 3935
+    },
+    {
+        "date": "2014-01-25",
+        "followers": 6146
+    },
+    {
+        "date": "2014-01-26",
+        "followers": 992
+    },
+    {
+        "date": "2014-01-27",
+        "followers": 6747
+    },
+    {
+        "date": "2014-01-28",
+        "followers": 8982
+    },
+    {
+        "date": "2014-01-29",
+        "followers": 9861
+    },
+    {
+        "date": "2014-01-30",
+        "followers": 8870
+    },
+    {
+        "date": "2014-01-31",
+        "followers": 5033
+    },
+    {
+        "date": "2014-02-01",
+        "followers": 5160
+    },
+    {
+        "date": "2014-02-02",
+        "followers": 3139
+    },
+    {
+        "date": "2014-02-03",
+        "followers": 4091
+    },
+    {
+        "date": "2014-02-04",
+        "followers": 1024
+    },
+    {
+        "date": "2014-02-05",
+        "followers": 2725
+    },
+    {
+        "date": "2014-02-06",
+        "followers": 3416
+    },
+    {
+        "date": "2014-02-07",
+        "followers": 7672
+    },
+    {
+        "date": "2014-02-08",
+        "followers": 4172
+    },
+    {
+        "date": "2014-02-09",
+        "followers": 7642
+    },
+    {
+        "date": "2014-02-10",
+        "followers": 2697
+    },
+    {
+        "date": "2014-02-11",
+        "followers": 7879
+    },
+    {
+        "date": "2014-02-12",
+        "followers": 3869
+    },
+    {
+        "date": "2014-02-13",
+        "followers": 2489
+    },
+    {
+        "date": "2014-02-14",
+        "followers": 2503
+    },
+    {
+        "date": "2014-02-15",
+        "followers": 1423
+    },
+    {
+        "date": "2014-02-16",
+        "followers": 9234
+    },
+    {
+        "date": "2014-02-17",
+        "followers": 9961
+    },
+    {
+        "date": "2014-02-18",
+        "followers": 6225
+    },
+    {
+        "date": "2014-02-19",
+        "followers": 572
+    },
+    {
+        "date": "2014-02-20",
+        "followers": 8204
+    },
+    {
+        "date": "2014-02-21",
+        "followers": 1819
+    },
+    {
+        "date": "2014-02-22",
+        "followers": 8844
+    },
+    {
+        "date": "2014-02-23",
+        "followers": 9092
+    },
+    {
+        "date": "2014-02-24",
+        "followers": 5755
+    },
+    {
+        "date": "2014-02-25",
+        "followers": 4990
+    },
+    {
+        "date": "2014-02-26",
+        "followers": 83
+    },
+    {
+        "date": "2014-02-27",
+        "followers": 2501
+    },
+    {
+        "date": "2014-02-28",
+        "followers": 3971
+    },
+    {
+        "date": "2014-03-01",
+        "followers": 9945
+    },
+    {
+        "date": "2014-03-02",
+        "followers": 1370
+    },
+    {
+        "date": "2014-03-03",
+        "followers": 9005
+    },
+    {
+        "date": "2014-03-04",
+        "followers": 5104
+    },
+    {
+        "date": "2014-03-05",
+        "followers": 4510
+    },
+    {
+        "date": "2014-03-06",
+        "followers": 3095
+    },
+    {
+        "date": "2014-03-07",
+        "followers": 6129
+    },
+    {
+        "date": "2014-03-08",
+        "followers": 7236
+    },
+    {
+        "date": "2014-03-09",
+        "followers": 6511
+    },
+    {
+        "date": "2014-03-10",
+        "followers": 3800
+    },
+    {
+        "date": "2014-03-11",
+        "followers": 1408
+    },
+    {
+        "date": "2014-03-12",
+        "followers": 4153
+    },
+    {
+        "date": "2014-03-13",
+        "followers": 6498
+    },
+    {
+        "date": "2014-03-14",
+        "followers": 9287
+    },
+    {
+        "date": "2014-03-15",
+        "followers": 8022
+    },
+    {
+        "date": "2014-03-16",
+        "followers": 8987
+    },
+    {
+        "date": "2014-03-17",
+        "followers": 1789
+    },
+    {
+        "date": "2014-03-18",
+        "followers": 9446
+    },
+    {
+        "date": "2014-03-19",
+        "followers": 8220
+    },
+    {
+        "date": "2014-03-20",
+        "followers": 1750
+    },
+    {
+        "date": "2014-03-21",
+        "followers": 5671
+    },
+    {
+        "date": "2014-03-22",
+        "followers": 8792
+    },
+    {
+        "date": "2014-03-23",
+        "followers": 9954
+    },
+    {
+        "date": "2014-03-24",
+        "followers": 7491
+    },
+    {
+        "date": "2014-03-25",
+        "followers": 7636
+    },
+    {
+        "date": "2014-03-26",
+        "followers": 9046
+    },
+    {
+        "date": "2014-03-27",
+        "followers": 3245
+    },
+    {
+        "date": "2014-03-28",
+        "followers": 2625
+    },
+    {
+        "date": "2014-03-29",
+        "followers": 9129
+    }
+];
+
+var json2 = [
+    {
+        "date": "2013-10-09",
+        "followers": "45"
+    },
+    {
+        "date": "2013-11-10",
+        "followers": "23"
+    },
+    {
+        "date": "2013-12-11",
+        "followers": "32"
+    }
+];
+
+var presentJson = true;
+
+var lineChart1 = new d3Charts.lineAreaChart({top:30,bottom:50,left:60,
+								right:30,width:800,
+								height:600,xscale:"months",
+								selector:"#graph"});
+
+lineChart1.init(json1);
+
+d3.select(".update").on("click",function(event){
+
+	if(presentJson){
+		console.log("json2");
+		lineChart1.update(json2);
+	} else {
+		console.log("json1");
+		lineChart1.update(json1);
+	}
+
+	presentJson = !presentJson;
+});
+
+});
+
+		</script>
+	</body>
+</html>
